@@ -5,8 +5,9 @@
  */
 package baza;
 
-import static java.lang.Integer.parseInt;
 import java.util.Scanner;
+import obsluga.Sterownia;
+
 
 /**
  *
@@ -42,6 +43,7 @@ public class Baza {
                     }
                     case 2: {
                         System.out.println("wybrales 2");
+                        Sterownia s = new Sterownia();
                         break;
                     }
                     case 3: {

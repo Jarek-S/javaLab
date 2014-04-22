@@ -7,6 +7,8 @@
 package obsluga;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -18,12 +20,26 @@ public class Sterownia {
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
     
-    public static String DB_URL = "jdbc:derby:baza_pracownikow";
+    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow";
+    public static String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     
     private Connection polaczenie;
     private Statement zapytanie;
     
     public Sterownia() {
-        
+        try {
+            Class.forName(Sterownia.DB_DRIVER);
+        }
+        catch (ClassNotFoundException e) {
+            System.err.println("Nie ma sterownika JDBC!");
+            e.printStackTrace();
+        }
+        try {
+            Connection polaczenie = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            System.out.println("Połączenie z bazą nawiazane.");
+        }
+        catch (SQLException e) {
+            System.err.println("Problem z połączeniem z bazą danych!");
+        }
     }
 }
