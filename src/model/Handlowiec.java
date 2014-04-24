@@ -34,7 +34,7 @@ public class Handlowiec extends Pracownik {
     public Handlowiec() {
     }
 
-    public Handlowiec(String prowizja, String limit_prowizji, Integer id, String imie, String nazwisko, String wynagrodzenie, String stanowisko, String telefon) {
+    public Handlowiec(Integer id, String imie, String nazwisko, String wynagrodzenie, String stanowisko, String telefon, String prowizja, String limit_prowizji) {
         super(id, imie, nazwisko, wynagrodzenie, stanowisko, telefon);
         this.prowizja = prowizja;
         this.limit_prowizji = limit_prowizji;
