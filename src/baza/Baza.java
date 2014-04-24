@@ -42,8 +42,12 @@ public class Baza {
                         break;
                     }
                     case 2: {
-                        System.out.println("wybrales 2");
+                        System.out.println("2.1 Dodaj pracownika");
+                        System.out.println("");
                         Sterownia s = new Sterownia();
+                        s.createTable();
+                        //s.dodajPracownika();
+                        s.closeConnection();
                         break;
                     }
                     case 3: {
@@ -69,6 +73,7 @@ public class Baza {
             } catch (Exception e) {
                 System.out.println("Masz wybrać numer!");
                 System.out.println("Spróbuj jeszcze raz...");
+                e.printStackTrace();
             }
         }
     }

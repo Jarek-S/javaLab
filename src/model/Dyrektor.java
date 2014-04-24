@@ -42,7 +42,7 @@ public class Dyrektor extends Pracownik {
     public Dyrektor() {
     }
 
-    public Dyrektor(String dodatek, String karta, String limit, Integer id, String imie, String nazwisko, String wynagrodzenie, String stanowisko, String telefon) {
+    public Dyrektor(Integer id, String imie, String nazwisko, String wynagrodzenie, String stanowisko, String telefon, String dodatek, String karta, String limit) {
         super(id, imie, nazwisko, wynagrodzenie, stanowisko, telefon);
         this.dodatek = dodatek;
         this.karta = karta;
