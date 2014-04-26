@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package obsluga;
 
 import java.sql.Connection;
@@ -17,21 +16,21 @@ import java.util.Scanner;
  * @author Agnieszka
  */
 public class Sterownia {
+
     private final String DB_USER = "jarek";
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
-    
+
     public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow";
     public static String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    
+
     private Connection polaczenie;
     private Statement zapytanie;
-    
+
     public Sterownia() {
         try {
             Class.forName(Sterownia.DB_DRIVER);
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             System.err.println("Nie ma sterownika JDBC!");
             e.printStackTrace();
         }
@@ -39,12 +38,11 @@ public class Sterownia {
             polaczenie = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             zapytanie = polaczenie.createStatement();
             System.out.println("Połączenie z bazą nawiazane.");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Problem z połączeniem z bazą danych!");
         }
     }
-    
+
     public void closeConnection() {
         try {
             polaczenie.close();
@@ -53,31 +51,57 @@ public class Sterownia {
             e.printStackTrace();
         }
     }
-    
-    public void createTable()  {
+
+    public void createTable() {
         String createPracownicy = "CREATE TABLE pracownicy (id_pracownika INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), imie varchar(16), nazwisko varchar(32), pensja int, stanowisko varchar(16), telefon varchar(32), dodatek int, karta_nr varchar(16), limit int, prowizja int)";
         String test = "SELECT * FROM pracownicy";
         try {
-            if (!zapytanie.execute(test))
-            zapytanie.execute(createPracownicy);
+            if (!zapytanie.execute(test)) {
+                zapytanie.execute(createPracownicy);
+            }
         } catch (SQLException e) {
             System.err.println("Błąd przy tworzeniu tabeli");
             e.printStackTrace();
         }
     }
-    
+
     public void dodajPracownika() {
-        System.out.println("    [D]yrektor/[H]andlowiec: ");
-       try {
+        String wybor = null;
+        while (!wybor.equals("Q")) {
+            System.out.println("    [D]yrektor/[H]andlowiec: ");
+            try {
                 Scanner odczyt = new Scanner(System.in);
-                String wybor = odczyt.nextLine();
+                wybor = odczyt.nextLine();
+
                 if (wybor.equalsIgnoreCase("D")) {
                     String stanowisko = "Dyrektor";
-                    
+                    System.out.println("--------------------------------------------------");
+                    System.out.print("Imię          : ");
+                    String imie = odczyt.next();
+                    System.out.print("Nazwisko      : ");
+                    String nazwisko = odczyt.next();
+                    System.out.print("Wynagrodzenie : ");
+                    String wynagrodzenie = odczyt.next();
+                    System.out.print("Telefon       : ");
+                    String telefon = odczyt.next();
+
                 }
+                if (wybor.equalsIgnoreCase("H")) {
+                    String stanowisko = "Handlowiec";
+                    System.out.println("--------------------------------------------------");
+                    System.out.print("Imię          : ");
+                    String imie = odczyt.next();
+                    System.out.print("Nazwisko      : ");
+                    String nazwisko = odczyt.next();
+                    System.out.print("Wynagrodzenie : ");
+                    String wynagrodzenie = odczyt.next();
+                    System.out.print("Telefon       : ");
+                    String telefon = odczyt.next();
+
+                }
+            } catch (Exception e) {
+
+            }
         }
-       catch (Exception e) {
-           
-       }
     }
 }
