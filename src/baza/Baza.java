@@ -46,7 +46,7 @@ public class Baza {
                         System.out.println("");
                         Sterownia s = new Sterownia();
                         s.createTable();
-                        //s.dodajPracownika();
+                        s.dodajPracownika();
                         s.closeConnection();
                         break;
                     }

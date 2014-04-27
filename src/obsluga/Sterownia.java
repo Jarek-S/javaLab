@@ -26,6 +26,8 @@ public class Sterownia {
 
     private Connection polaczenie;
     private Statement zapytanie;
+    
+    public static String LINIA = "--------------------------------------------------";
 
     public Sterownia() {
         try {
@@ -56,7 +58,7 @@ public class Sterownia {
         String createPracownicy = "CREATE TABLE pracownicy (id_pracownika INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), imie varchar(16), nazwisko varchar(32), pensja int, stanowisko varchar(16), telefon varchar(32), dodatek int, karta_nr varchar(16), limit int, prowizja int)";
         String test = "SELECT * FROM pracownicy";
         try {
-            if (!zapytanie.execute(test)) {
+            if (!(zapytanie.execute(test))) {
                 zapytanie.execute(createPracownicy);
             }
         } catch (SQLException e) {
@@ -66,8 +68,8 @@ public class Sterownia {
     }
 
     public void dodajPracownika() {
-        String wybor = null;
-        while (!wybor.equals("Q")) {
+        String wybor = "S";
+        while (!(wybor.equals("Q"))) {
             System.out.println("    [D]yrektor/[H]andlowiec: ");
             try {
                 Scanner odczyt = new Scanner(System.in);
@@ -75,7 +77,7 @@ public class Sterownia {
 
                 if (wybor.equalsIgnoreCase("D")) {
                     String stanowisko = "Dyrektor";
-                    System.out.println("--------------------------------------------------");
+                    System.out.println(LINIA);
                     System.out.print("Imię          : ");
                     String imie = odczyt.next();
                     System.out.print("Nazwisko      : ");
@@ -88,7 +90,7 @@ public class Sterownia {
                 }
                 if (wybor.equalsIgnoreCase("H")) {
                     String stanowisko = "Handlowiec";
-                    System.out.println("--------------------------------------------------");
+                    System.out.println(LINIA);
                     System.out.print("Imię          : ");
                     String imie = odczyt.next();
                     System.out.print("Nazwisko      : ");
@@ -99,9 +101,13 @@ public class Sterownia {
                     String telefon = odczyt.next();
 
                 }
+                else continue;
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
+            System.out.println(LINIA);
+            System.out.println("[Enter] - zapisz");
+            System.out.println("[Q] - porzuć");
         }
     }
 }
