@@ -26,7 +26,7 @@ public class Sterownia {
 
     private Connection polaczenie;
     private Statement zapytanie;
-    
+
     public static String LINIA = "--------------------------------------------------";
 
     public Sterownia() {
@@ -69,6 +69,7 @@ public class Sterownia {
 
     public void dodajPracownika() {
         String wybor = "S";
+        String stanowisko;
         while (!(wybor.equals("Q"))) {
             System.out.println("    [D]yrektor/[H]andlowiec: ");
             try {
@@ -76,38 +77,59 @@ public class Sterownia {
                 wybor = odczyt.nextLine();
 
                 if (wybor.equalsIgnoreCase("D")) {
-                    String stanowisko = "Dyrektor";
-                    System.out.println(LINIA);
-                    System.out.print("Imię          : ");
-                    String imie = odczyt.next();
-                    System.out.print("Nazwisko      : ");
-                    String nazwisko = odczyt.next();
-                    System.out.print("Wynagrodzenie : ");
-                    String wynagrodzenie = odczyt.next();
-                    System.out.print("Telefon       : ");
-                    String telefon = odczyt.next();
+                    stanowisko = "Dyrektor";
+                }
+                else
+                if (wybor.equalsIgnoreCase("H")) {
+                    stanowisko = "Handlowiec";
+                } else {
+                    continue;
+                }
+                System.out.println(LINIA);
+                System.out.print("Imię             : ");
+                String imie = odczyt.next();
+                System.out.print("Nazwisko         : ");
+                String nazwisko = odczyt.next();
+                System.out.print("Wynagrodzenie    : ");
+                String wynagrodzenie = odczyt.next();
+                System.out.println("Stanowisko       9: " + stanowisko);
+                System.out.print("Telefon          : ");
+                String telefon = odczyt.next();
 
+                if (wybor.equalsIgnoreCase("D")) {
+                    System.out.print("Dodatek służbowy : ");
+                    String dodatek = odczyt.next();
+                    System.out.print("Karta służbowa   : ");
+                    String karta = odczyt.next();
+                    System.out.print("Limit kosztów    : ");
+                    String limit = odczyt.next();
                 }
                 if (wybor.equalsIgnoreCase("H")) {
-                    String stanowisko = "Handlowiec";
-                    System.out.println(LINIA);
-                    System.out.print("Imię          : ");
-                    String imie = odczyt.next();
-                    System.out.print("Nazwisko      : ");
-                    String nazwisko = odczyt.next();
-                    System.out.print("Wynagrodzenie : ");
-                    String wynagrodzenie = odczyt.next();
-                    System.out.print("Telefon       : ");
-                    String telefon = odczyt.next();
-
+                    System.out.print("Prowizja %       : ");
+                    String prowizja = odczyt.next();
+                    System.out.print("Limit prowizji   : ");
+                    String limit = odczyt.next();
                 }
-                else continue;
             } catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println(LINIA);
             System.out.println("[Enter] - zapisz");
             System.out.println("[Q] - porzuć");
+            try {
+                Scanner odczyt = new Scanner(System.in);
+                wybor = odczyt.nextLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println(wybor);
+            while(!(wybor.equals("Q")) && !(wybor.equals("")))
+            {
+            }
+            if (wybor.equals(""))
+            {
+                System.out.println("Zatwierdzono!");
+            }
         }
     }
 }
