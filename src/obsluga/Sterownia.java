@@ -70,6 +70,7 @@ public class Sterownia {
     public void dodajPracownika() {
         String wybor = "S";
         String stanowisko;
+        String query;
         while (!(wybor.equals("Q"))) {
             System.out.println("    [D]yrektor/[H]andlowiec: ");
             try {
@@ -78,57 +79,58 @@ public class Sterownia {
 
                 if (wybor.equalsIgnoreCase("D")) {
                     stanowisko = "Dyrektor";
-                }
-                else
-                if (wybor.equalsIgnoreCase("H")) {
+                } else if (wybor.equalsIgnoreCase("H")) {
                     stanowisko = "Handlowiec";
                 } else {
                     continue;
                 }
                 System.out.println(LINIA);
                 System.out.print("Imię             : ");
-                String imie = odczyt.next();
+                query = odczyt.next();
                 System.out.print("Nazwisko         : ");
-                String nazwisko = odczyt.next();
+                query = query + ", " + odczyt.next();
                 System.out.print("Wynagrodzenie    : ");
-                String wynagrodzenie = odczyt.next();
-                System.out.println("Stanowisko       9: " + stanowisko);
+                query = query + ", " + odczyt.next();
+                System.out.println("Stanowisko       : " + stanowisko);
+                query = query + ", " + stanowisko;
                 System.out.print("Telefon          : ");
-                String telefon = odczyt.next();
+                query = query + ", " + odczyt.next();
 
                 if (wybor.equalsIgnoreCase("D")) {
                     System.out.print("Dodatek służbowy : ");
-                    String dodatek = odczyt.next();
+                    query = query + ", " + odczyt.next();
                     System.out.print("Karta służbowa   : ");
-                    String karta = odczyt.next();
+                    query = query + ", " + odczyt.next();
                     System.out.print("Limit kosztów    : ");
-                    String limit = odczyt.next();
+                    query = query + ", " + odczyt.next();
+                    query = "INSERT INTO pracownicy(imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit, prowizja) VALUES (" + query + ")";
+
                 }
                 if (wybor.equalsIgnoreCase("H")) {
                     System.out.print("Prowizja %       : ");
-                    String prowizja = odczyt.next();
+                    query = query + ", " + odczyt.next();
                     System.out.print("Limit prowizji   : ");
-                    String limit = odczyt.next();
+                    query = query + ", " + odczyt.next();
+                    query = "INSERT INTO pracownicy(imie, nazwisko, pensja, stanowisko, telefon, dodatek, prowizja, limit) VALUES (" + query + ")";
+                }
+
+                System.out.println(LINIA);
+                System.out.println("[Enter] - zapisz");
+                System.out.println("[Q] - porzuć");
+
+                //    Scanner odczyt = new Scanner(System.in);
+                wybor = odczyt.nextLine();
+
+                System.out.println(wybor);
+                while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                }
+                if (wybor.equals("")) {
+                    System.out.println(query);
+                    zapytanie.execute(query);
+                    System.out.println("Zatwierdzono!");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-            System.out.println(LINIA);
-            System.out.println("[Enter] - zapisz");
-            System.out.println("[Q] - porzuć");
-            try {
-                Scanner odczyt = new Scanner(System.in);
-                wybor = odczyt.nextLine();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println(wybor);
-            while(!(wybor.equals("Q")) && !(wybor.equals("")))
-            {
-            }
-            if (wybor.equals(""))
-            {
-                System.out.println("Zatwierdzono!");
             }
         }
     }
