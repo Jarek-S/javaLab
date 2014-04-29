@@ -103,7 +103,7 @@ public class Sterownia {
                     query = query + ", " + odczyt.next();
                     System.out.print("Limit kosztów    : ");
                     query = query + ", " + odczyt.next();
-                    query = "INSERT INTO pracownicy(imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit, prowizja) VALUES (" + query + ")";
+                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit) VALUES (" + query + ")";
 
                 }
                 if (wybor.equalsIgnoreCase("H")) {
@@ -111,7 +111,7 @@ public class Sterownia {
                     query = query + ", " + odczyt.next();
                     System.out.print("Limit prowizji   : ");
                     query = query + ", " + odczyt.next();
-                    query = "INSERT INTO pracownicy(imie, nazwisko, pensja, stanowisko, telefon, dodatek, prowizja, limit) VALUES (" + query + ")";
+                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, prowizja, limit) VALUES (" + query + ")";
                 }
 
                 System.out.println(LINIA);
@@ -126,7 +126,7 @@ public class Sterownia {
                 }
                 if (wybor.equals("")) {
                     System.out.println(query);
-                    zapytanie.execute(query);
+                    zapytanie.executeUpdate(query);
                     System.out.println("Zatwierdzono!");
                 }
             } catch (Exception e) {
