@@ -6,7 +6,9 @@
 package obsluga;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -21,7 +23,7 @@ public class Sterownia {
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
 
-    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow";
+    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow;create=true";
     public static String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
     private Connection polaczenie;
@@ -55,10 +57,13 @@ public class Sterownia {
     }
 
     public void createTable() {
-        String createPracownicy = "CREATE TABLE pracownicy (id_pracownika INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), imie varchar(16), nazwisko varchar(32), pensja int, stanowisko varchar(16), telefon varchar(32), dodatek int, karta_nr varchar(16), limit int, prowizja int)";
-        String test = "SELECT * FROM pracownicy";
+        String createPracownicy = "CREATE TABLE pracownicy (id_pracownika INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), imie varchar(16), nazwisko varchar(32), pensja varchar(16), stanowisko varchar(16), telefon varchar(32), dodatek varchar(16), karta_nr varchar(16), limit varchar(16), prowizja varchar(16))";
+        ResultSet test = null;
+        DatabaseMetaData meta = null;
         try {
-            if (!(zapytanie.execute(test))) {
+            meta = polaczenie.getMetaData();
+            test = meta.getTables(null, null, "PRACOWNICY", null);
+            if (!test.next()) {
                 zapytanie.execute(createPracownicy);
             }
         } catch (SQLException e) {
@@ -86,32 +91,31 @@ public class Sterownia {
                 }
                 System.out.println(LINIA);
                 System.out.print("Imię             : ");
-                query = odczyt.next();
+                query = "'" + odczyt.next();
                 System.out.print("Nazwisko         : ");
-                query = query + ", " + odczyt.next();
+                query = query + "', '" + odczyt.next();
                 System.out.print("Wynagrodzenie    : ");
-                query = query + ", " + odczyt.next();
+                query = query + "', '" + odczyt.next();
                 System.out.println("Stanowisko       : " + stanowisko);
-                query = query + ", " + stanowisko;
+                query = query + "', '" + stanowisko;
                 System.out.print("Telefon          : ");
-                query = query + ", " + odczyt.next();
+                query = query + "', '" + odczyt.next();
 
                 if (wybor.equalsIgnoreCase("D")) {
                     System.out.print("Dodatek służbowy : ");
-                    query = query + ", " + odczyt.next();
+                    query = query + "', '" + odczyt.next();
                     System.out.print("Karta służbowa   : ");
-                    query = query + ", " + odczyt.next();
+                    query = query + "', '" + odczyt.next();
                     System.out.print("Limit kosztów    : ");
-                    query = query + ", " + odczyt.next();
-                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit) VALUES (" + query + ")";
+                    query = query + "', '" + odczyt.next();
+                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit) VALUES (" + query + "')";
 
-                }
-                if (wybor.equalsIgnoreCase("H")) {
+                } else {
                     System.out.print("Prowizja %       : ");
-                    query = query + ", " + odczyt.next();
+                    query = query + "', '" + odczyt.next();
                     System.out.print("Limit prowizji   : ");
-                    query = query + ", " + odczyt.next();
-                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, prowizja, limit) VALUES (" + query + ")";
+                    query = query + "', '" + odczyt.next();
+                    query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, prowizja, limit) VALUES (" + query + "')";
                 }
 
                 System.out.println(LINIA);
@@ -123,10 +127,11 @@ public class Sterownia {
 
                 System.out.println(wybor);
                 while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                    wybor = odczyt.nextLine();
                 }
                 if (wybor.equals("")) {
                     System.out.println(query);
-                    zapytanie.executeUpdate(query);
+                    zapytanie.execute(query);
                     System.out.println("Zatwierdzono!");
                 }
             } catch (Exception e) {
