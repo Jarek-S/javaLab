@@ -121,18 +121,25 @@ public class Sterownia {
                 System.out.println(LINIA);
                 System.out.println("[Enter] - zapisz");
                 System.out.println("[Q] - porzuć");
-
-                //    Scanner odczyt = new Scanner(System.in);
                 wybor = odczyt.nextLine();
 
-                System.out.println(wybor);
+            //    System.out.println(wybor);
                 while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
                     wybor = odczyt.nextLine();
                 }
                 if (wybor.equals("")) {
                     System.out.println(query);
                     zapytanie.execute(query);
-                    System.out.println("Zatwierdzono!");
+                    System.out.println("Dodano pracownika.");
+                    System.out.println("Czy chcesz dodać kolejnego?");
+                    System.out.println("[Enter] - kolejny");
+                    System.out.println("[Q] - wyjście");
+                    wybor = odczyt.nextLine();
+
+                //    System.out.println(wybor);
+                    while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                        wybor = odczyt.nextLine();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
