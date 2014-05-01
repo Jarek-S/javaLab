@@ -172,7 +172,6 @@ public class Sterownia {
                     System.out.println("[Q] - wyjście");
                     wybor = odczyt.nextLine();
 
-                //    System.out.println(wybor);
                     while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
                         wybor = odczyt.nextLine();
                     }
