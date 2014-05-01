@@ -55,7 +55,11 @@ public class Baza {
                         break;
                     }
                     case 3: {
-                        System.out.println("wybrales 3");
+                        System.out.println("3.1 Usuń pracownika");
+                        System.out.println("");
+                        Sterownia s = new Sterownia();
+                        s.usunPracownika();
+                        s.closeConnection();
                         break;
                     }
                     case 4: {

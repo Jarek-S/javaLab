@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class Sterownia {
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
 
-    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow;create=true;territory=pl_PL";
+    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow";
     public static String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
     private Connection polaczenie;
@@ -43,8 +44,9 @@ public class Sterownia {
         }
         try {
             polaczenie = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            //    System.out.println("Połączenie z bazą nawiazane.");
             zapytanie = polaczenie.createStatement();
-            System.out.println("Połączenie z bazą nawiazane.");
+            //    System.out.println("Obiekt zapytania gotowy.");
         } catch (SQLException e) {
             System.err.println("Problem z połączeniem z bazą danych!");
         }
@@ -88,10 +90,10 @@ public class Sterownia {
                 String wybor = odczyt.nextLine();
 
                 System.out.println(wybor);
-                while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
                     wybor = odczyt.nextLine();
                 }
-                if (wybor.equals("Q")) {
+                if (wybor.equalsIgnoreCase("Q")) {
                     break;
                 }
             }
@@ -120,7 +122,7 @@ public class Sterownia {
         String wybor = "S";
         String stanowisko;
         String query;
-        while (!(wybor.equals("Q"))) {
+        while (!(wybor.equalsIgnoreCase("Q"))) {
             System.out.println("    [D]yrektor/[H]andlowiec: ");
             try {
                 Scanner odczyt = new Scanner(System.in);
@@ -168,11 +170,11 @@ public class Sterownia {
                 wybor = odczyt.nextLine();
 
                 //    System.out.println(wybor);
-                while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
                     wybor = odczyt.nextLine();
                 }
                 if (wybor.equals("")) {
-                    System.out.println(query);
+                    //    System.out.println(query);
                     zapytanie.execute(query);
                     System.out.println("Dodano pracownika.");
                     System.out.println("Czy chcesz dodać kolejnego?");
@@ -180,13 +182,80 @@ public class Sterownia {
                     System.out.println("[Q] - wyjście");
                     wybor = odczyt.nextLine();
 
-                    while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                    while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
                         wybor = odczyt.nextLine();
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void usunPracownika() {
+        try {
+            String wybor = "S";
+            int id_kasowanego;
+            Scanner odczyt = new Scanner(System.in);
+            while (!(wybor.equalsIgnoreCase("Q"))) {
+                System.out.println(LINIA);
+                System.out.print("Podaj identyfikator: ");
+                id_kasowanego = odczyt.nextInt();
+                String query = "SELECT * FROM pracownicy WHERE id_pracownika=" + id_kasowanego;
+                ResultSet lista = zapytanie.executeQuery(query);
+
+                System.out.println(LINIA);
+                if (lista.next()) {
+                    System.out.println("Id               : " + lista.getInt("id_pracownika"));
+                    System.out.println("Imię             : " + lista.getString("imie"));
+                    System.out.println("Nazwisko         : " + lista.getString("nazwisko"));
+                    System.out.println("Wynagrodzenie    : " + lista.getString("pensja"));
+                    System.out.println("Stanowisko       : " + lista.getString("stanowisko"));
+                    System.out.println("Telefon          : " + lista.getString("telefon"));
+
+                    if (lista.getString("stanowisko").equalsIgnoreCase("Dyrektor")) {
+                        System.out.println("Dodatek służbowy : " + lista.getString("dodatek"));
+                        System.out.println("Karta służbowa   : " + lista.getString("karta_nr"));
+                        System.out.println("Limit kosztów    : " + lista.getString("limit"));
+                    } else {
+                        System.out.println("Prowizja %       : " + lista.getString("prowizja"));
+                        System.out.println("Limit prowizji   : " + lista.getString("limit"));
+                    }
+
+                    System.out.println(LINIA);
+                    System.out.println("[Enter] - potwierdź");
+                    System.out.println("[Q] - porzuć");
+
+                    wybor = odczyt.nextLine();
+
+                    while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
+                        wybor = odczyt.nextLine();
+                    }
+                    if (wybor.equals("")) {
+                        //    System.out.println(query);
+                        zapytanie.executeUpdate("DELETE FROM pracownicy WHERE id_pracownika=" + id_kasowanego);
+                        System.out.println("Usunięto pracownika.");
+                        System.out.println("Czy chcesz usunąć kolejnego?");
+                        System.out.println("[Enter] - kolejny");
+                        System.out.println("[Q] - wyjście");
+                        wybor = odczyt.nextLine();
+
+                        while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
+                            wybor = odczyt.nextLine();
+                        }
+                    }
+                }
+                else {
+                    System.out.println("Nie ma pracownika o identyfikatorze "+id_kasowanego+" lub baza jest pusta.");
+                    wybor = "N";
+                }
+            }
+        } 
+        catch (InputMismatchException e) {
+            System.out.println("Wprowadzaj poprawne dane!");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
