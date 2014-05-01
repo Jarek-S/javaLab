@@ -61,16 +61,24 @@ public class Sterownia {
 
     public void pokazPracownikow() {
         try {
-            ResultSet lista = zapytanie.executeQuery("SELECT * FROM pracownicy");            
-            //String imie, nazwisko, wynagrodzenie, stanowisko, telefon, dodatek, prowizja, karta, limit;
+            ResultSet lista = zapytanie.executeQuery("SELECT * FROM pracownicy");
             while (lista.next()) {
                 System.out.println(LINIA);
-                System.out.println("Id               : "+lista.getInt("id_pracownika"));
-                System.out.println("Imię             : "+lista.getString("imie"));
-                System.out.println("Nazwisko         : "+lista.getString("nazwisko"));
-                System.out.println("Wynagrodzenie    : "+lista.getString("pensja"));
-                System.out.println("Stanowisko       : "+lista.getString("stanowisko"));
-                System.out.println("Telefon          : "+lista.getString("telefon"));
+                System.out.println("Id               : " + lista.getInt("id_pracownika"));
+                System.out.println("Imię             : " + lista.getString("imie"));
+                System.out.println("Nazwisko         : " + lista.getString("nazwisko"));
+                System.out.println("Wynagrodzenie    : " + lista.getString("pensja"));
+                System.out.println("Stanowisko       : " + lista.getString("stanowisko"));
+                System.out.println("Telefon          : " + lista.getString("telefon"));
+
+                if (lista.getString("stanowisko").equalsIgnoreCase("Dyrektor")) {
+                    System.out.println("Dodatek służbowy : " + lista.getString("dodatek"));
+                    System.out.println("Karta służbowa   : " + lista.getString("karta"));
+                    System.out.println("Limit kosztów    : " + lista.getString("limit"));
+                } else {
+                    System.out.println("Prowizja %       : " + lista.getString("prowizja"));
+                    System.out.println("Limit prowizji   : " + lista.getString("limit"));
+                }
 
                 System.out.println(LINIA);
                 System.out.println("[Enter] - dalej");
@@ -127,30 +135,30 @@ public class Sterownia {
                 }
                 System.out.println(LINIA);
                 System.out.print("Imię             : ");
-                query = "'" + odczyt.next();
+                query = "'" + odczyt.nextLine();
                 System.out.print("Nazwisko         : ");
-                query = query + "', '" + odczyt.next();
+                query = query + "', '" + odczyt.nextLine();
                 System.out.print("Wynagrodzenie    : ");
-                query = query + "', '" + odczyt.next();
+                query = query + "', '" + odczyt.nextLine();
                 System.out.println("Stanowisko       : " + stanowisko);
                 query = query + "', '" + stanowisko;
                 System.out.print("Telefon          : ");
-                query = query + "', '" + odczyt.next();
+                query = query + "', '" + odczyt.nextLine();
 
                 if (wybor.equalsIgnoreCase("D")) {
                     System.out.print("Dodatek służbowy : ");
-                    query = query + "', '" + odczyt.next();
+                    query = query + "', '" + odczyt.nextLine();
                     System.out.print("Karta służbowa   : ");
-                    query = query + "', '" + odczyt.next();
+                    query = query + "', '" + odczyt.nextLine();
                     System.out.print("Limit kosztów    : ");
-                    query = query + "', '" + odczyt.next();
+                    query = query + "', '" + odczyt.nextLine();
                     query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, dodatek, karta_nr, limit) VALUES (" + query + "')";
 
                 } else {
                     System.out.print("Prowizja %       : ");
-                    query = query + "', '" + odczyt.next();
+                    query = query + "', '" + odczyt.nextLine();
                     System.out.print("Limit prowizji   : ");
-                    query = query + "', '" + odczyt.next();
+                    query = query + "', '" + odczyt.nextLine();
                     query = "INSERT INTO pracownicy (imie, nazwisko, pensja, stanowisko, telefon, prowizja, limit) VALUES (" + query + "')";
                 }
 
@@ -159,7 +167,7 @@ public class Sterownia {
                 System.out.println("[Q] - porzuć");
                 wybor = odczyt.nextLine();
 
-            //    System.out.println(wybor);
+                //    System.out.println(wybor);
                 while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
                     wybor = odczyt.nextLine();
                 }
