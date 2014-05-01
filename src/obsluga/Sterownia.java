@@ -244,17 +244,14 @@ public class Sterownia {
                             wybor = odczyt.nextLine();
                         }
                     }
-                }
-                else {
-                    System.out.println("Nie ma pracownika o identyfikatorze "+id_kasowanego+" lub baza jest pusta.");
+                } else {
+                    System.out.println("Nie ma pracownika o identyfikatorze " + id_kasowanego + " lub baza jest pusta.");
                     wybor = "N";
                 }
             }
-        } 
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("Wprowadzaj poprawne dane!");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
