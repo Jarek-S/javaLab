@@ -26,7 +26,7 @@ public class Sterownia {
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
 
-    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow;create=true";
+    public static String DB_URL = "jdbc:derby://localhost:1527/baza_pracownikow;create=true;territory=pl_PL";
     public static String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
     private Connection polaczenie;
@@ -73,7 +73,7 @@ public class Sterownia {
 
                 if (lista.getString("stanowisko").equalsIgnoreCase("Dyrektor")) {
                     System.out.println("Dodatek służbowy : " + lista.getString("dodatek"));
-                    System.out.println("Karta służbowa   : " + lista.getString("karta"));
+                    System.out.println("Karta służbowa   : " + lista.getString("karta_nr"));
                     System.out.println("Limit kosztów    : " + lista.getString("limit"));
                 } else {
                     System.out.println("Prowizja %       : " + lista.getString("prowizja"));
