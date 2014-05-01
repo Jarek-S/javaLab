@@ -60,7 +60,6 @@ public class Sterownia {
     }
 
     public void pokazPracownikow() {
-        //List<Pracownik> pracownicy = new LinkedList<Pracownik>();
         try {
             ResultSet lista = zapytanie.executeQuery("SELECT * FROM pracownicy");            
             //String imie, nazwisko, wynagrodzenie, stanowisko, telefon, dodatek, prowizja, karta, limit;
