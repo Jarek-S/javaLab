@@ -38,7 +38,11 @@ public class Baza {
 
                 switch (wybor) {
                     case 1: {
-                        System.out.println("wybrales 1");
+                        System.out.println("1.1 Pokaż pracowników");
+                        System.out.println("");
+                        Sterownia s = new Sterownia();                  
+                        s.pokazPracownikow();
+                        s.closeConnection();
                         break;
                     }
                     case 2: {

@@ -11,7 +11,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import model.Pracownik;
 
 /**
  *
@@ -52,6 +55,40 @@ public class Sterownia {
             polaczenie.close();
         } catch (SQLException e) {
             System.err.println("Problem z zamknięciem połączenia!");
+            e.printStackTrace();
+        }
+    }
+
+    public void pokazPracownikow() {
+        //List<Pracownik> pracownicy = new LinkedList<Pracownik>();
+        try {
+            ResultSet lista = zapytanie.executeQuery("SELECT * FROM pracownicy");            
+            //String imie, nazwisko, wynagrodzenie, stanowisko, telefon, dodatek, prowizja, karta, limit;
+            while (lista.next()) {
+                System.out.println(LINIA);
+                System.out.println("Id               : "+lista.getInt("id_pracownika"));
+                System.out.println("Imię             : "+lista.getString("imie"));
+                System.out.println("Nazwisko         : "+lista.getString("nazwisko"));
+                System.out.println("Wynagrodzenie    : "+lista.getString("pensja"));
+                System.out.println("Stanowisko       : "+lista.getString("stanowisko"));
+                System.out.println("Telefon          : "+lista.getString("telefon"));
+
+                System.out.println(LINIA);
+                System.out.println("[Enter] - dalej");
+                System.out.println("[Q] - porzuć");
+
+                Scanner odczyt = new Scanner(System.in);
+                String wybor = odczyt.nextLine();
+
+                System.out.println(wybor);
+                while (!(wybor.equals("Q")) && !(wybor.equals(""))) {
+                    wybor = odczyt.nextLine();
+                }
+                if (wybor.equals("Q")) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
