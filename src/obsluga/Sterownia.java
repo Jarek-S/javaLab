@@ -12,10 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
-import model.Pracownik;
 
 /**
  *
@@ -221,32 +218,31 @@ public class Sterownia {
                         System.out.println("Prowizja %       : " + lista.getString("prowizja"));
                         System.out.println("Limit prowizji   : " + lista.getString("limit"));
                     }
+                } else {
+                    System.out.println("Nie ma pracownika o identyfikatorze " + id_kasowanego + " lub baza jest pusta.");
+                    continue;
+                }
+                System.out.println(LINIA);
+                System.out.println("[Enter] - potwierdź");
+                System.out.println("[Q] - porzuć");
+                //następne 2 linie potrzebne, bo w skanerze jakaś kupa zostaje
+                wybor = odczyt.nextLine();
+                wybor = "N";
 
-                    System.out.println(LINIA);
-                    System.out.println("[Enter] - potwierdź");
-                    System.out.println("[Q] - porzuć");
-
+                while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
+                    wybor = odczyt.nextLine();
+                }
+                if (wybor.equals("")) {
+                    zapytanie.executeUpdate("DELETE FROM pracownicy WHERE id_pracownika=" + id_kasowanego);
+                    System.out.println("Usunięto pracownika o identyfikatorze " + id_kasowanego + ".");
+                    System.out.println("Czy chcesz usunąć kolejnego?");
+                    System.out.println("[Enter] - kolejny");
+                    System.out.println("[Q] - wyjście");
                     wybor = odczyt.nextLine();
 
                     while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
                         wybor = odczyt.nextLine();
                     }
-                    if (wybor.equals("")) {
-                        //    System.out.println(query);
-                        zapytanie.executeUpdate("DELETE FROM pracownicy WHERE id_pracownika=" + id_kasowanego);
-                        System.out.println("Usunięto pracownika.");
-                        System.out.println("Czy chcesz usunąć kolejnego?");
-                        System.out.println("[Enter] - kolejny");
-                        System.out.println("[Q] - wyjście");
-                        wybor = odczyt.nextLine();
-
-                        while (!(wybor.equalsIgnoreCase("Q")) && !(wybor.equals(""))) {
-                            wybor = odczyt.nextLine();
-                        }
-                    }
-                } else {
-                    System.out.println("Nie ma pracownika o identyfikatorze " + id_kasowanego + " lub baza jest pusta.");
-                    wybor = "N";
                 }
             }
         } catch (InputMismatchException e) {

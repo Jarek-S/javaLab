@@ -6,6 +6,7 @@
 package baza;
 
 import java.util.Scanner;
+import obsluga.Backup;
 import obsluga.Sterownia;
 
 
@@ -27,6 +28,7 @@ public class Baza {
             System.out.println("    3. Usuń pracownika");
             System.out.println("    4. Kopia zapasowa");
             System.out.println("    5. Pobierz dane z sieci");
+            System.out.println("    6. Użyj RMI");
             System.out.println(" ");
             System.out.println("    9. Koniec");
             System.out.println(" ");
@@ -63,11 +65,18 @@ public class Baza {
                         break;
                     }
                     case 4: {
-                        System.out.println("wybrales 4");
+                        System.out.println("4.1 Kopia zapasowa");
+                        System.out.println("");
+                        Backup b = new Backup();
+                        System.out.println("[Z]achowaj/[O]dzyskaj : ");
                         break;
                     }
                     case 5: {
                         System.out.println("wybrales 5");
+                        break;
+                    }
+                    case 6: {
+                        System.out.println("wybrales 6");
                         break;
                     }
                     case 9: {
