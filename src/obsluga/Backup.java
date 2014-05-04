@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package obsluga;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -17,6 +17,7 @@ import java.util.Calendar;
  * @author Agnieszka
  */
 public class Backup {
+
     private final String DB_USER = "jarek";
     private final String DB_PASS = "1234";
     private final String DB_NAME = "baza_pracownikow";
@@ -44,8 +45,13 @@ public class Backup {
         } catch (SQLException e) {
             System.err.println("Problem z połączeniem z bazą danych!");
         }
+    }
+
+    public void wykonajKopie() {
+        SimpleDateFormat formatDaty = new SimpleDateFormat("yyyy-MM-dd");
         Calendar data = Calendar.getInstance();
-        String plik = data.getTime() + ".bkp";
+        String plik = formatDaty.format(data.getTime()) + ".bkp";
         System.out.println(plik);
     }
+
 }

@@ -9,7 +9,6 @@ import java.util.Scanner;
 import obsluga.Backup;
 import obsluga.Sterownia;
 
-
 /**
  *
  * @author Agnieszka
@@ -42,7 +41,7 @@ public class Baza {
                     case 1: {
                         System.out.println("1.1 Pokaż pracowników");
                         System.out.println("");
-                        Sterownia s = new Sterownia();                  
+                        Sterownia s = new Sterownia();
                         s.pokazPracownikow();
                         s.closeConnection();
                         break;
@@ -67,8 +66,15 @@ public class Baza {
                     case 4: {
                         System.out.println("4.1 Kopia zapasowa");
                         System.out.println("");
-                        Backup b = new Backup();
-                        System.out.println("[Z]achowaj/[O]dzyskaj : ");
+                        System.out.print("[Z]achowaj/[O]dzyskaj : ");
+                        Scanner wejscie = new Scanner(System.in);
+                        String decyzja = wejscie.nextLine();
+                        while (!(decyzja.equalsIgnoreCase("Z")) && !(decyzja.equalsIgnoreCase("O"))) {
+                            decyzja = wejscie.nextLine();
+                        }
+                        if (decyzja.equalsIgnoreCase("Z")) {
+                            Backup b = new Backup();
+                        }
                         break;
                     }
                     case 5: {
