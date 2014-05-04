@@ -74,6 +74,11 @@ public class Baza {
                         }
                         if (decyzja.equalsIgnoreCase("Z")) {
                             Backup b = new Backup();
+                            b.wykonajKopie();
+                        }
+                        else {
+                            Backup b = new Backup();
+                            b.odzyskajDane();
                         }
                         break;
                     }
