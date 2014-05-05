@@ -7,6 +7,7 @@ package baza;
 
 import java.util.Scanner;
 import obsluga.Backup;
+import obsluga.KlientSieci;
 import obsluga.Sterownia;
 
 /**
@@ -83,7 +84,9 @@ public class Baza {
                         break;
                     }
                     case 5: {
-                        System.out.println("wybrales 5");
+                        KlientSieci kS = new KlientSieci();
+                        System.out.println("5.1 Pobierz dane z sieci");
+                        kS.PobierzDane();
                         break;
                     }
                     case 6: {
