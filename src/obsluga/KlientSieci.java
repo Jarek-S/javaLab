@@ -5,8 +5,11 @@
  */
 package obsluga;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
  *
@@ -14,47 +17,38 @@ import java.io.*;
  */
 public class KlientSieci {
 
-    InputStream wejscie = null;
-    BufferedReader odczyt = null;
-    Socket gnd = null;
-
-    public KlientSieci() {
+    public void doRoboty() {
         try {
-            gnd = new Socket("0.0.0.0", 6666);
-        } catch (UnknownHostException e) {
-            System.out.println("Nieznany host");
+            Socket gniazdo = new Socket("localhost", 6666);
+            InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
+            BufferedReader czytnik = new BufferedReader(czytnikStrumienia);
+            String komunikatSerwera = czytnik.readLine();
+            System.out.println();
+            System.out.println("    Adres       :   " + gniazdo.getInetAddress());
+            System.out.println("    Port        :   " + gniazdo.getPort());
+            System.out.println(obsluga.Sterownia.LINIA);
+            System.out.println("    Łączenie    :   Sukces");
+            System.out.println(obsluga.Sterownia.LINIA);
+            System.out.println("Czy chcesz pobrać dane? [T]/[N]");
+            Scanner we = new Scanner(System.in);
+            String wybor = we.nextLine();
+            while (!(wybor.equalsIgnoreCase("T")) && !(wybor.equalsIgnoreCase("N"))) {
+                wybor = we.nextLine();
+            }
+            if (wybor.equalsIgnoreCase("T")) {
+                System.out.println();
+                System.out.println(obsluga.Sterownia.LINIA);
+                System.out.println("Komunikat z serwera: " + komunikatSerwera);
+                System.out.println(obsluga.Sterownia.LINIA);
+            }
+            czytnik.close();
         } catch (IOException e) {
-            System.out.println("Nie udało się utworzyć gniazda klienta");
+            e.printStackTrace();
         }
-
     }
 
     public void PobierzDane() {
-        try {
-            System.out.println(gnd);
-            wejscie = gnd.getInputStream();
-        } catch (IOException e) {
-            System.out.println("Nie udało się otworzyć strumienia wejścia");
-        }
-        try {
-            if (wejscie != null) {
-                System.out.println(wejscie);
-                odczyt = new BufferedReader(new InputStreamReader(wejscie));
-                System.out.println(odczyt);
-            }        
-            if (odczyt != null) {
-                String komunikat = odczyt.readLine();
-                System.out.println("Komunikat serwera: " + komunikat);
-            }
-        } catch (Exception e) {
-            System.out.println("Nie można odczytać komunikatu z serwera");
-        }
-        try {
-            odczyt.close();
-            wejscie.close();       
-            gnd.close();
-        } catch (IOException e) {
-            System.out.println("Nie można zamknąć gniazda lub strumienia");
-        }
+        KlientSieci klient = new KlientSieci();
+        klient.doRoboty();
     }
 }
