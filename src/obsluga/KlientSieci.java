@@ -38,13 +38,10 @@ public class KlientSieci {
         }
         try {
             if (wejscie != null) {
+                System.out.println(wejscie);
                 odczyt = new BufferedReader(new InputStreamReader(wejscie));
                 System.out.println(odczyt);
-            }
-        } catch (Exception e) {
-            System.out.println("Nie można otworzyć strumienia odczytu wejścia");
-        }
-        try {
+            }        
             if (odczyt != null) {
                 String komunikat = odczyt.readLine();
                 System.out.println("Komunikat serwera: " + komunikat);
@@ -54,15 +51,10 @@ public class KlientSieci {
         }
         try {
             odczyt.close();
-            wejscie.close();
-        } catch (IOException e) {
-            System.out.println("Nie można zamknąć strumieni wejściowych");
-        }
-
-        try {
+            wejscie.close();       
             gnd.close();
         } catch (IOException e) {
-            System.out.println("Nie można zamknąć gniazda sieciowego klienta");
+            System.out.println("Nie można zamknąć gniazda lub strumienia");
         }
     }
 }
