@@ -14,13 +14,13 @@ import java.io.*;
  */
 public class KlientSieci {
 
-    private Socket gnd = null;
-    private InputStream wejscie = null;
-    private BufferedReader odczyt = null;
+    InputStream wejscie = null;
+    BufferedReader odczyt = null;
+    Socket gnd = null;
 
     public KlientSieci() {
         try {
-            gnd = new Socket("127.0.0.1", 6666);
+            gnd = new Socket("localhost", 6666);
         } catch (UnknownHostException e) {
             System.out.println("Nieznany host");
         } catch (IOException e) {
@@ -43,14 +43,13 @@ public class KlientSieci {
             System.out.println("Nie można otworzyć strumienia odczytu wejścia");
         }
         try {
-            if (odczyt!=null) {
+            if (odczyt != null) {
                 String komunikat = odczyt.readLine();
-                System.out.println("Komunikat serwera: "+komunikat);
+                System.out.println("Komunikat serwera: " + komunikat);
             }
+        } catch (Exception e) {
+            System.out.println("Nie można odczytać komunikatu z serwera");
         }
-catch(Exception e) {
-    System.out.println("Nie można odczytać komunikatu z serwera");
-}
         try {
             odczyt.close();
             wejscie.close();
