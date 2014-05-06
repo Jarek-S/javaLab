@@ -20,7 +20,7 @@ public class KlientSieci {
 
     public KlientSieci() {
         try {
-            gnd = new Socket("localhost", 6666);
+            gnd = new Socket("127.0.0.1", 6666);
         } catch (UnknownHostException e) {
             System.out.println("Nieznany host");
         } catch (IOException e) {
