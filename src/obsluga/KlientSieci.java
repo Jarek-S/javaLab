@@ -20,7 +20,7 @@ public class KlientSieci {
 
     public KlientSieci() {
         try {
-            gnd = new Socket("localhost", 6666);
+            gnd = new Socket("0.0.0.0", 6666);
         } catch (UnknownHostException e) {
             System.out.println("Nieznany host");
         } catch (IOException e) {
@@ -31,6 +31,7 @@ public class KlientSieci {
 
     public void PobierzDane() {
         try {
+            System.out.println(gnd);
             wejscie = gnd.getInputStream();
         } catch (IOException e) {
             System.out.println("Nie udało się otworzyć strumienia wejścia");
@@ -38,6 +39,7 @@ public class KlientSieci {
         try {
             if (wejscie != null) {
                 odczyt = new BufferedReader(new InputStreamReader(wejscie));
+                System.out.println(odczyt);
             }
         } catch (Exception e) {
             System.out.println("Nie można otworzyć strumienia odczytu wejścia");
