@@ -6,8 +6,11 @@
 package obsluga;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -27,7 +30,7 @@ public class KlientSieci {
             System.out.println("    Adres       :   " + gniazdo.getInetAddress());
             System.out.println("    Port        :   " + gniazdo.getPort());
             System.out.println(obsluga.Sterownia.LINIA);
-            System.out.println("    Łączenie    :   Sukces");
+            System.out.println("    Łączenie    :   " + komunikatSerwera);
             System.out.println(obsluga.Sterownia.LINIA);
             System.out.println("Czy chcesz pobrać dane? [T]/[N]");
             Scanner we = new Scanner(System.in);
@@ -36,10 +39,12 @@ public class KlientSieci {
                 wybor = we.nextLine();
             }
             if (wybor.equalsIgnoreCase("T")) {
-                System.out.println();
-                System.out.println(obsluga.Sterownia.LINIA);
-                System.out.println("Komunikat z serwera: " + komunikatSerwera);
-                System.out.println(obsluga.Sterownia.LINIA);
+               PrintWriter pisarz = new PrintWriter(gniazdo.getOutputStream());
+               pisarz.println(wybor);
+               while(czytnik.readLine()!=null){
+                   System.out.println(czytnik.readLine());
+               }                   
+               pisarz.close();
             }
             czytnik.close();
         } catch (IOException e) {
