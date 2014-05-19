@@ -30,7 +30,7 @@ public class KlientSieci {
             System.out.println("    Adres       :   " + gniazdo.getInetAddress());
             System.out.println("    Port        :   " + gniazdo.getPort());
             System.out.println(obsluga.Sterownia.LINIA);
-            System.out.println("    Łączenie    :   " + komunikatSerwera);
+System.out.println("    Łączenie    :   " + komunikatSerwera);
             System.out.println(obsluga.Sterownia.LINIA);
             System.out.println("Czy chcesz pobrać dane? [T]/[N]");
             Scanner we = new Scanner(System.in);
