@@ -42,43 +42,16 @@ public class KlientSieci {
             }
             if (wybor.equalsIgnoreCase("T")) {
                 String wiersz = null;
-                try {
-                ResultSet lista = null;
-                ObjectInputStream ois = new ObjectInputStream(gniazdo.getInputStream());
                 System.out.println(obsluga.Sterownia.LINIA);
-                lista = (ResultSet) ois.readObject();
-                while (lista.next()) {
-                System.out.println(obsluga.Sterownia.LINIA);
-                System.out.println("Id               : " + lista.getInt("id_pracownika"));
-                System.out.println("Imię             : " + lista.getString("imie"));
-                System.out.println("Nazwisko         : " + lista.getString("nazwisko"));
-                System.out.println("Wynagrodzenie    : " + lista.getString("pensja"));
-                System.out.println("Stanowisko       : " + lista.getString("stanowisko"));
-                System.out.println("Telefon          : " + lista.getString("telefon"));
-
-                if (lista.getString("stanowisko").equalsIgnoreCase("Dyrektor")) {
-                    System.out.println("Dodatek służbowy : " + lista.getString("dodatek"));
-                    System.out.println("Karta służbowa   : " + lista.getString("karta_nr"));
-                    System.out.println("Limit kosztów    : " + lista.getString("limit"));
-                } else {
-                    System.out.println("Prowizja %       : " + lista.getString("prowizja"));
-                    System.out.println("Limit prowizji   : " + lista.getString("limit"));
-                }}
-                } catch(Exception e) {
-                        e.printStackTrace();
-                        }
-                
-                while ((wiersz = czytnik.readLine()) != null) {
+                while((wiersz = czytnik.readLine())!=null) {
                     System.out.println(wiersz);
                 }
-                
-                System.out.println(obsluga.Sterownia.LINIA);
+                //System.out.println(obsluga.Sterownia.LINIA);
                 System.out.println("Pobieranie zakończone");
                 System.out.println(obsluga.Sterownia.LINIA);
-
             }
             czytnik.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
