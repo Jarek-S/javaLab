@@ -30,7 +30,7 @@ public class KlientSieci {
             System.out.println("    Adres       :   " + gniazdo.getInetAddress());
             System.out.println("    Port        :   " + gniazdo.getPort());
             System.out.println(obsluga.Sterownia.LINIA);
-System.out.println("    Łączenie    :   " + komunikatSerwera);
+            System.out.println("    Łączenie    :   " + komunikatSerwera);
             System.out.println(obsluga.Sterownia.LINIA);
             System.out.println("Czy chcesz pobrać dane? [T]/[N]");
             Scanner we = new Scanner(System.in);
@@ -39,12 +39,15 @@ System.out.println("    Łączenie    :   " + komunikatSerwera);
                 wybor = we.nextLine();
             }
             if (wybor.equalsIgnoreCase("T")) {
-               PrintWriter pisarz = new PrintWriter(gniazdo.getOutputStream());
-               pisarz.println(wybor);
-               while(czytnik.readLine()!=null){
-                   System.out.println(czytnik.readLine());
-               }                   
-               pisarz.close();
+                String wiersz = null;
+                System.out.println(obsluga.Sterownia.LINIA);
+                while ((wiersz = czytnik.readLine()) != null) {
+                    System.out.println(wiersz);
+                }
+                System.out.println(obsluga.Sterownia.LINIA);
+                System.out.println("Pobieranie zakończone");
+                System.out.println(obsluga.Sterownia.LINIA);
+
             }
             czytnik.close();
         } catch (IOException e) {
