@@ -59,4 +59,13 @@ public class KlientRMI {
         }
 
     }
+    
+    public void ZapiszDane() {
+        try {
+            users = klient.odczytajPlik();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

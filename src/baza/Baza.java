@@ -108,6 +108,7 @@ public class Baza {
                             } else if (decyzja.equalsIgnoreCase("U")) {
                                 kR.UsunUsera();
                             }
+                            else kR.ZapiszDane();
                         }
                         break;
                     }
