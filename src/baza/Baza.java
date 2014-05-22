@@ -7,8 +7,10 @@ package baza;
 
 import java.util.Scanner;
 import obsluga.Backup;
+import obsluga.KlientRMI;
 import obsluga.KlientSieci;
 import obsluga.Sterownia;
+import static obsluga.Sterownia.LINIA;
 
 /**
  *
@@ -28,7 +30,7 @@ public class Baza {
             System.out.println("    3. Usuń pracownika");
             System.out.println("    4. Kopia zapasowa");
             System.out.println("    5. Pobierz dane z sieci");
-            System.out.println("    6. Użyj RMI");
+            System.out.println("    6. Zarządzaj uprawnieniami transferu");
             System.out.println(" ");
             System.out.println("    9. Koniec");
             System.out.println(" ");
@@ -76,8 +78,7 @@ public class Baza {
                         if (decyzja.equalsIgnoreCase("Z")) {
                             Backup b = new Backup();
                             b.wykonajKopie();
-                        }
-                        else {
+                        } else {
                             Backup b = new Backup();
                             b.odzyskajDane();
                         }
@@ -90,7 +91,24 @@ public class Baza {
                         break;
                     }
                     case 6: {
-                        System.out.println("wybrales 6");
+                        System.out.println("6.1 Zarządzaj uprawnieniami transferu danych");
+                        String decyzja = "X";
+                        while (!(decyzja.equalsIgnoreCase("Z"))) {
+                            KlientRMI kR = new KlientRMI();
+                            kR.PokazDane();
+                            System.out.println(LINIA);
+                            System.out.println("[D]odaj/[U]suń/[Z]akończ");
+                            Scanner wejscie = new Scanner(System.in);
+                            decyzja = wejscie.nextLine();
+                            while (!(decyzja.equalsIgnoreCase("Z")) && !(decyzja.equalsIgnoreCase("D")) && !(decyzja.equalsIgnoreCase("U"))) {
+                                decyzja = wejscie.nextLine();
+                            }
+                            if (decyzja.equalsIgnoreCase("D")) {
+                                kR.DodajUsera();
+                            } else if (decyzja.equalsIgnoreCase("U")) {
+                                kR.UsunUsera();
+                            }
+                        }
                         break;
                     }
                     case 9: {

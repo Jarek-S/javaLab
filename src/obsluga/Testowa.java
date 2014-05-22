@@ -21,6 +21,7 @@ public class Testowa {
         try {            
             Manager test = (Manager) Naming.lookup("//localhost:7777/Zarzadca");
             test.napiszKomunikat();
+            test.zapiszDoPliku("To był test");
         } catch (Exception e) {
             e.printStackTrace();
         }

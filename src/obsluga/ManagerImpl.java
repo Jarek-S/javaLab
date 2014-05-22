@@ -27,7 +27,7 @@ public class ManagerImpl extends UnicastRemoteObject implements Manager {
 
     public void zapiszDoPliku(String dane) {
         try {
-            BufferedWriter pisarz = new BufferedWriter(new FileWriter("C:\\dane\\users.txt"));
+            BufferedWriter pisarz = new BufferedWriter(new FileWriter("C:\\daneDB\\users.txt"));
             pisarz.write(dane);
             pisarz.close();
         } catch (IOException e) {
@@ -36,9 +36,9 @@ public class ManagerImpl extends UnicastRemoteObject implements Manager {
     }
 
     public HashMap odczytajPlik() {
-        HashMap dane = null;
+        HashMap<String,String> dane = null;
         try {
-            File tajnyPlik = new File("C:\\dane\\users.txt");
+            File tajnyPlik = new File("C:\\daneDB\\users.txt");
             FileReader czytnikPliku = new FileReader(tajnyPlik);
             BufferedReader czytnik = new BufferedReader(czytnikPliku);
             String wiersz = null;
