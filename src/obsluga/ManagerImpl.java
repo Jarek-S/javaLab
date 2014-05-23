@@ -36,7 +36,7 @@ public class ManagerImpl extends UnicastRemoteObject implements Manager {
     }
 
     public HashMap odczytajPlik() {
-        HashMap<String,String> dane = null;
+        HashMap<String,String> dane = new HashMap<>();
         try {
             File tajnyPlik = new File("C:\\daneDB\\users.txt");
             FileReader czytnikPliku = new FileReader(tajnyPlik);
@@ -53,8 +53,8 @@ public class ManagerImpl extends UnicastRemoteObject implements Manager {
         return dane;
     }
     
-    public void napiszKomunikat() {
-        System.out.println("To jest metoda RMI");
+    public void napiszKomunikat(String komunikat) {
+        System.out.println(komunikat);
     }
 }
 

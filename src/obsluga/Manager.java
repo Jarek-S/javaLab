@@ -21,5 +21,5 @@ import java.util.HashMap;
 public interface Manager extends Remote {
     public void zapiszDoPliku(String dane) throws RemoteException;
     public HashMap odczytajPlik() throws RemoteException;
-    public void napiszKomunikat() throws RemoteException;
+    public void napiszKomunikat(String komunikat) throws RemoteException;
 }
