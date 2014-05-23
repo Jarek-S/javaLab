@@ -7,7 +7,7 @@ package obsluga;
 
 import java.rmi.Naming;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Scanner;
 import static obsluga.Sterownia.LINIA;
 
 /**
@@ -17,7 +17,7 @@ import static obsluga.Sterownia.LINIA;
 public class KlientRMI {
 
     Manager klient;
-    HashMap<String,String> users;
+    HashMap<String, String> users;
 
     public KlientRMI() {
         try {
@@ -34,17 +34,29 @@ public class KlientRMI {
             e.printStackTrace();
         }
         System.out.println("");
-        for (HashMap.Entry<String,String> entry : users.entrySet()) {
-            System.out.println("Użytkownik      :       "+entry.getKey());
-            System.out.println("Hasło           :       "+entry.getValue());
+        for (HashMap.Entry<String, String> entry : users.entrySet()) {
+            System.out.println("Użytkownik      :       " + entry.getKey());
+            System.out.println("Hasło           :       " + entry.getValue());
             System.out.println(LINIA);
         }
 
     }
 
     public void DodajUsera() {
+        String dane = null;
         try {
             users = klient.odczytajPlik();
+            System.out.print("POdaj nazwę użytkownika: ");
+            Scanner wejscie = new Scanner(System.in);
+            String klucz = wejscie.nextLine();
+            System.out.print("Podaj hasło: ");
+            String wartosc = wejscie.nextLine();
+            users.put(klucz, wartosc);
+            for (HashMap.Entry<String, String> entry : users.entrySet()) {
+                dane += entry.getKey() + "/" + entry.getValue() + "\n";
+            }
+            klient.zapiszDoPliku(dane);
+            klient.napiszKomunikat("Dodano użytkownika");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,7 +71,7 @@ public class KlientRMI {
         }
 
     }
-    
+
     public void ZapiszDane() {
         try {
             users = klient.odczytajPlik();
