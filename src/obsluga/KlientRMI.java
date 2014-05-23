@@ -43,29 +43,48 @@ public class KlientRMI {
     }
 
     public void DodajUsera() {
-        String dane = null;
+        //String dane;
         try {
+            String dane = "";
             users = klient.odczytajPlik();
-            System.out.print("POdaj nazwę użytkownika: ");
+            System.out.println("6.1.1 Dodaj użytkownika");
+            System.out.print("Podaj login: ");
             Scanner wejscie = new Scanner(System.in);
             String klucz = wejscie.nextLine();
             System.out.print("Podaj hasło: ");
             String wartosc = wejscie.nextLine();
             users.put(klucz, wartosc);
             for (HashMap.Entry<String, String> entry : users.entrySet()) {
-                dane += entry.getKey() + "/" + entry.getValue() + "\n";
+            dane = dane + entry.getKey() + "/" + entry.getValue() + "\n";
             }
             klient.zapiszDoPliku(dane);
             klient.napiszKomunikat("Dodano użytkownika");
+            System.out.println("Dodano użytkownika " + klucz);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void UsunUsera() {
+        String dane = "";
         try {
             users = klient.odczytajPlik();
+            System.out.println("6.1.2 Usuń użytkownika");
+            System.out.print("Podaj login: ");
+            Scanner wejscie = new Scanner(System.in);
+            String klucz = wejscie.nextLine();
+            while (!(users.containsKey(klucz))) {
+                System.out.println("Nie ma takiego użytkownika!");
+                System.out.print("Podaj login: ");
+                klucz = wejscie.nextLine();
+            }
+            users.remove(klucz);
+            for (HashMap.Entry<String, String> entry : users.entrySet()) {
+                dane = dane + entry.getKey() + "/" + entry.getValue() + "\n";
+            }
+            klient.zapiszDoPliku(dane);
+            klient.napiszKomunikat("Usunięto użytkownika");
+            System.out.println("Usunięto użytkownika " + klucz);
         } catch (Exception e) {
             e.printStackTrace();
         }
